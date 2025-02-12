@@ -10,8 +10,6 @@ interface ThemeContextType {
   setThemeMode: (mode: "light" | "dark" | "system") => void;
   primaryColor: string;
   setPrimaryColor: (color: string) => void;
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
 }
 
 // Create the context
@@ -19,9 +17,9 @@ const ThemeContext = createContext<ThemeContextType | null>(null);
 
 // ThemeProvider component
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  // State for theme mode and primary color
   const [themeMode, setThemeMode] = useState<"light" | "dark" | "system">("light");
   const [primaryColor, setPrimaryColor] = useState<string>("#673AB7");
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(themeMode === "dark");
 
   // Load saved theme settings from localStorage on initial render
   useEffect(() => {
@@ -37,22 +35,19 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem("primaryColor", primaryColor);
   }, [themeMode, primaryColor]);
 
-  // Toggle Dark Mode
-  const toggleDarkMode = () => {
-    setThemeMode((prev) => (prev === "light" ? "dark" : "light"));
-    setIsDarkMode((prev) => !prev);
-  };
-
   // Create the MUI theme
   const theme = createTheme({
     palette: {
       mode: themeMode === "system" ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : themeMode,
       primary: { main: primaryColor },
+      background: {
+        default: themeMode === "dark" ? "#30243C" : "#fff", // Set custom dark mode background color
+      },
     },
   });
 
   return (
-    <ThemeContext.Provider value={{ themeMode, setThemeMode, primaryColor, setPrimaryColor, isDarkMode, toggleDarkMode }}>
+    <ThemeContext.Provider value={{ themeMode, setThemeMode, primaryColor, setPrimaryColor }}>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         {children}

@@ -38,7 +38,7 @@ export default function Sidebar() {
       transition: "all 0.3s ease",
       boxShadow: "2px 0 10px rgba(0,0,0,0.1)",
     }}>
-      <Box sx={{width:250, height: 80, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <Box sx={{ height: 80, display: "flex", alignItems: "center", justifyContent: "center" }}>
         <img src="/favicon.ico" alt="Logo" width={40} />
         <Typography variant="h6" sx={{ ml: 2 }}>App Name</Typography>
       </Box>
@@ -54,7 +54,7 @@ export default function Sidebar() {
           return (
             <ListItemButton
               key={text}
-              selected={!isActive}
+              selected={:isActive}
               sx={{
                 borderRadius: "0 60px 60px 0", // Rounded corners
                 bgcolor: isActive ? primaryColor : "transparent",
@@ -64,7 +64,7 @@ export default function Sidebar() {
                 },
                 color: isActive ? "white" : "text.primary",
                 transition: "all 0.3s ease",
-                padding: "7px 15px",
+                padding: "12px 20px",
                 margin: "6px 0",
               }}
               onClick={handleNavigation}

@@ -1,7 +1,7 @@
 "use client";
 
-import { Drawer, List, ListItemButton, ListItemIcon, ListItemText, Box, Typography } from "@mui/material";
-import { usePathname, useRouter } from "next/navigation";
+import { Drawer, List, ListItemButton, ListItemIcon, ListItemText, Box } from "@mui/material";
+import { usePathname, useRouter } from "next/navigation"; // Import useRouter and usePathname
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -28,59 +28,47 @@ const menuItems = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  console.log("path",pathname) // Get current path
   const router = useRouter();
+  console.log("route",router) // Get current path
+   // Router to navigate
   const { primaryColor } = useThemeSettings();
 
   return (
-    <Drawer variant="permanent" sx={{
-      width: 250,
-      bgcolor: "background.paper",
-      transition: "all 0.3s ease",
-      boxShadow: "2px 0 10px rgba(0,0,0,0.1)",
-    }}>
-      <Box sx={{width:250, height: 80, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <img src="/favicon.ico" alt="Logo" width={40} />
-        <Typography variant="h6" sx={{ ml: 2 }}>App Name</Typography>
+    <Drawer variant="permanent" sx={{ width: 250, bgcolor: "background.paper" }}>
+      <Box sx={{ height: 80, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <img src="/favicon.ico" alt="Logo" width={50} />
       </Box>
-      
       <List>
         {menuItems.map(({ text, icon, path }) => {
           const isActive = pathname === path;
+          console.log("is active" , isActive)
 
           const handleNavigation = () => {
-            router.push(path);
+            router.push(path); // Change the URL when clicked
           };
 
           return (
             <ListItemButton
-              key={text}
-              selected={!isActive}
-              sx={{
-                borderRadius: "0 60px 60px 0", // Rounded corners
-                bgcolor: isActive ? primaryColor : "transparent",
-                "&:hover": {
-                  bgcolor: isActive ? primaryColor : "rgba(0, 0, 0, 0.1)",
-                  boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-                },
-                color: isActive ? "white" : "text.primary",
-                transition: "all 0.3s ease",
-                padding: "7px 15px",
-                margin: "6px 0",
-              }}
-              onClick={handleNavigation}
-            >
-              <ListItemIcon sx={{ color: isActive ? "white" : "text.primary", minWidth: "40px" }}>
-                {icon}
-              </ListItemIcon>
-              <ListItemText
-                primary={text}
-                sx={{
-                  fontWeight: isActive ? "bold" : "normal",
-                  fontSize: "16px",
-                  letterSpacing: "0.5px",
-                }}
-              />
-            </ListItemButton>
+            key={text}
+            selected={!isActive}
+            sx={{
+              borderRadius: "0 20px 0 20px ", // Rounded shape
+              bgcolor: isActive ? primaryColor : "transparent",
+              "&:hover": { bgcolor: isActive ? primaryColor : "rgba(0, 0, 0, 0.05)" },
+              color: isActive ? "white" : "text.primary",
+              transition: "all 0.3s ease-in-out",
+              padding: "10px 20px",
+              margin: "8px 0",
+            }}
+            onClick={handleNavigation}
+          >
+            <ListItemIcon sx={{ color: isActive ? "white" : "text.primary", minWidth: "40px" }}>
+              {icon}
+            </ListItemIcon>
+            <ListItemText primary={text} sx={{ fontWeight: isActive ? "bold" : "normal" }} />
+          </ListItemButton>
+          
           );
         })}
       </List>

@@ -12,6 +12,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import DataUsageIcon from "@mui/icons-material/DataUsage";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { useThemeSettings } from "../providers/ThemeProvider";
+import { useTheme } from "@mui/material/styles";
 
 // Menu items
 const menuItems = [
@@ -29,20 +30,25 @@ const menuItems = [
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { primaryColor } = useThemeSettings();
+  const { themeMode } = useThemeSettings();
+  const theme = useTheme();
+  console.log("theme " , theme) // Access the MUI theme
 
   return (
-    <Drawer variant="permanent" sx={{
-      width: 250,
-      bgcolor: "background.paper",
-      transition: "all 0.3s ease",
-      boxShadow: "2px 0 10px rgba(0,0,0,0.1)",
-    }}>
-      <Box sx={{width:250, height: 80, display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <Drawer
+      variant="permanent"
+      sx={{
+        width: 250,
+        bgcolor: themeMode === "dark" ? "#30243C" : theme.palette.background.paper, // Dark mode color
+        transition: "all 0.3s ease",
+        boxShadow: "2px 0 10px rgba(0,0,0,0.1)",
+      }}
+    >
+      <Box sx={{ width: 250, height: 80, display: "flex", alignItems: "center", justifyContent: "center" }}>
         <img src="/favicon.ico" alt="Logo" width={40} />
         <Typography variant="h6" sx={{ ml: 2 }}>App Name</Typography>
       </Box>
-      
+
       <List>
         {menuItems.map(({ text, icon, path }) => {
           const isActive = pathname === path;
@@ -57,19 +63,19 @@ export default function Sidebar() {
               selected={!isActive}
               sx={{
                 borderRadius: "0 60px 60px 0", // Rounded corners
-                bgcolor: isActive ? primaryColor : "transparent",
+                bgcolor: isActive ? theme.palette.primary.main : "transparent",
                 "&:hover": {
-                  bgcolor: isActive ? primaryColor : "rgba(0, 0, 0, 0.1)",
+                  bgcolor: isActive ? theme.palette.primary.main : "rgba(0, 0, 0, 0.1)",
                   boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
                 },
-                color: isActive ? "white" : "text.primary",
+                color: isActive ? "white" : theme.palette.text.primary,
                 transition: "all 0.3s ease",
                 padding: "7px 15px",
                 margin: "6px 0",
               }}
               onClick={handleNavigation}
             >
-              <ListItemIcon sx={{ color: isActive ? "white" : "text.primary", minWidth: "40px" }}>
+              <ListItemIcon sx={{ color: isActive ? "white" : theme.palette.text.primary, minWidth: "40px" }}>
                 {icon}
               </ListItemIcon>
               <ListItemText

@@ -64,7 +64,7 @@ export default function Sidebar() {
                 },
                 color: isActive ? "white" : "text.primary",
                 transition: "all 0.3s ease",
-                padding: "7px 15px",
+                padding: "9px 17px",
                 margin: "6px 0",
               }}
               onClick={handleNavigation}
