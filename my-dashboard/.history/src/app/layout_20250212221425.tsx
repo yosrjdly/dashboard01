@@ -25,19 +25,14 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider> {/* Wrap the app with ThemeProvider */}
           <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-            {/* Navbar and Sidebar in the same row */}
-            <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
-              {/* Sidebar on the left */}
-              <Sidebar />
-
-              {/* Navbar beside the Sidebar */}
-              <Box sx={{ flex: 1 }}>
-                <Navbar />
-              </Box>
-            </Box>
+            {/* Navbar at the top */}
+            <Navbar />
 
             {/* Main content area */}
             <Box sx={{ display: "flex", flex: 1 }}>
+              {/* Sidebar on the left */}
+              <Sidebar />
+
               {/* Main content */}
               <Box sx={{ flex: 1, overflowY: "auto", p: 3 }}>
                 {children}

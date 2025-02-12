@@ -21,33 +21,18 @@ const SettingsSidebar = ({ open, onClose }: { open: boolean; onClose: () => void
   const { themeMode, setThemeMode, primaryColor, setPrimaryColor, isDarkMode } = useThemeSettings();
 
   return (
-    <Drawer
-      anchor="right"
-      open={open}
-      onClose={onClose}
-      sx={{
-        width: "30%", // Proportional width (30% of the parent container)
-        maxWidth: 400, // Maximum width to avoid being too wide on large screens
-        minWidth: 250, // Minimum width to avoid being too narrow on small screens
-        flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: "30%", // Proportional width
-          maxWidth: 400, // Maximum width
-          minWidth: 250, // Minimum width
-          boxSizing: "border-box",
-          bgcolor: "background.default",
-          borderLeft: "2px solid #ddd",
-          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-          transition: "all 0.3s ease",
-        },
-      }}
-    >
+    <Drawer anchor="right" open={open} onClose={onClose}>
       <Box
         sx={{
+          width: 320,
           p: 3,
+          bgcolor: "background.default",
           display: "flex",
           flexDirection: "column",
           gap: 4,
+          borderLeft: "2px solid #ddd",
+          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+          transition: "all 0.3s ease",
         }}
       >
         {/* Close Button */}
@@ -80,7 +65,7 @@ const SettingsSidebar = ({ open, onClose }: { open: boolean; onClose: () => void
           <Box sx={{ display: "flex", gap: 2 }}>
             {/* Light Mode Button */}
             <Button
-              onClick={() => setThemeMode("light")}
+              onClick={() => setThemeMode("light")} // Set theme to light mode
               sx={{
                 flex: 1,
                 bgcolor: themeMode === "light" ? "primary.main" : "background.paper",
@@ -97,7 +82,7 @@ const SettingsSidebar = ({ open, onClose }: { open: boolean; onClose: () => void
 
             {/* Dark Mode Button */}
             <Button
-              onClick={() => setThemeMode("dark")}
+              onClick={() => setThemeMode("dark")} // Set theme to dark mode
               sx={{
                 flex: 1,
                 bgcolor: themeMode === "dark" ? "primary.main" : "background.paper",

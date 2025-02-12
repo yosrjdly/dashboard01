@@ -18,36 +18,21 @@ const colorOptions = [
 
 // SettingsSidebar component
 const SettingsSidebar = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
-  const { themeMode, setThemeMode, primaryColor, setPrimaryColor, isDarkMode } = useThemeSettings();
+  const { primaryColor, setPrimaryColor, isDarkMode, setDarkMode } = useThemeSettings();
 
   return (
-    <Drawer
-      anchor="right"
-      open={open}
-      onClose={onClose}
-      sx={{
-        width: "30%", // Proportional width (30% of the parent container)
-        maxWidth: 400, // Maximum width to avoid being too wide on large screens
-        minWidth: 250, // Minimum width to avoid being too narrow on small screens
-        flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: "30%", // Proportional width
-          maxWidth: 400, // Maximum width
-          minWidth: 250, // Minimum width
-          boxSizing: "border-box",
-          bgcolor: "background.default",
-          borderLeft: "2px solid #ddd",
-          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-          transition: "all 0.3s ease",
-        },
-      }}
-    >
+    <Drawer anchor="right" open={open} onClose={onClose}>
       <Box
         sx={{
+          width: 320,
           p: 3,
+          bgcolor: "background.default",
           display: "flex",
           flexDirection: "column",
           gap: 4,
+          borderLeft: "2px solid #ddd",
+          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+          transition: "all 0.3s ease",
         }}
       >
         {/* Close Button */}
@@ -80,13 +65,13 @@ const SettingsSidebar = ({ open, onClose }: { open: boolean; onClose: () => void
           <Box sx={{ display: "flex", gap: 2 }}>
             {/* Light Mode Button */}
             <Button
-              onClick={() => setThemeMode("light")}
+              onClick={() => setDarkMode(false)}
               sx={{
                 flex: 1,
-                bgcolor: themeMode === "light" ? "primary.main" : "background.paper",
-                color: themeMode === "light" ? "primary.contrastText" : "text.primary",
+                bgcolor: !isDarkMode ? "primary.main" : "background.paper",
+                color: !isDarkMode ? "primary.contrastText" : "text.primary",
                 "&:hover": {
-                  bgcolor: themeMode === "light" ? "primary.dark" : "action.hover",
+                  bgcolor: !isDarkMode ? "primary.dark" : "action.hover",
                 },
                 transition: "all 0.3s ease",
               }}
@@ -97,13 +82,13 @@ const SettingsSidebar = ({ open, onClose }: { open: boolean; onClose: () => void
 
             {/* Dark Mode Button */}
             <Button
-              onClick={() => setThemeMode("dark")}
+              onClick={() => setDarkMode(true)}
               sx={{
                 flex: 1,
-                bgcolor: themeMode === "dark" ? "primary.main" : "background.paper",
-                color: themeMode === "dark" ? "primary.contrastText" : "text.primary",
+                bgcolor: isDarkMode ? "primary.main" : "background.paper",
+                color: isDarkMode ? "primary.contrastText" : "text.primary",
                 "&:hover": {
-                  bgcolor: themeMode === "dark" ? "primary.dark" : "action.hover",
+                  bgcolor: isDarkMode ? "primary.dark" : "action.hover",
                 },
                 transition: "all 0.3s ease",
               }}
